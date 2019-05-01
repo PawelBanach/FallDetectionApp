@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FallDetectionApp</string>
+    <string name="activity">Activity</string>
+    <string name="probability">Probability</string>
+    <string name="bsc">Back-sitting-chair</string>
+    <string name="fkl">Front-knees-lying</string>
+    <string name="fol">Forward-lying</string>
+    <string name="lyi">Lying</string>
+    <string name="sdl">Sideward-lying</string>
+    <string name="std">Standing</string>
+</resources>
