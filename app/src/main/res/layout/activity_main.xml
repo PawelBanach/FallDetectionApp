@@ -38,14 +38,14 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/downstairs_row"
+            android:id="@+id/bsc_row"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:padding="22dp"
             android:background="@color/failure">
 
             <TextView
-                android:id="@+id/downstairs_title"
+                android:id="@+id/bsc"
                 android:layout_weight="1"
                 android:text="@string/bsc"
                 android:textAlignment="center"
@@ -53,21 +53,21 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/downstairs_prob"
+                android:id="@+id/bsc_prob"
                 android:layout_weight="1"
                 android:textAlignment="center"
                 android:textSize="18sp" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/jogging_row"
+            android:id="@+id/fkl_row"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:padding="22dp"
             android:background="@color/failure">
 
             <TextView
-                android:id="@+id/jogging_title"
+                android:id="@+id/fkl_title"
                 android:layout_weight="1"
                 android:text="@string/fkl"
                 android:textAlignment="center"
@@ -75,7 +75,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/jogging_prob"
+                android:id="@+id/fkl_prob"
                 android:layout_weight="1"
                 android:textAlignment="center"
                 android:textSize="18sp" />
@@ -89,7 +89,7 @@
             android:background="@color/failure">
 
             <TextView
-                android:id="@+id/sitting_title"
+                android:id="@+id/fol_title"
                 android:layout_weight="1"
                 android:text="@string/fol"
                 android:textAlignment="center"
@@ -97,21 +97,21 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/sitting_prob"
+                android:id="@+id/fol_prob"
                 android:layout_weight="1"
                 android:textAlignment="center"
                 android:textSize="18sp" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/upstairs_row"
+            android:id="@+id/sdl_row"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="22dp"
             android:background="@color/failure">
 
             <TextView
-                android:id="@+id/upstairs_title"
+                android:id="@+id/sdl_title"
                 android:layout_weight="1"
                 android:text="@string/sdl"
                 android:textAlignment="center"
@@ -119,21 +119,21 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/upstairs_prob"
+                android:id="@+id/sdl_prob"
                 android:layout_weight="1"
                 android:textAlignment="center"
                 android:textSize="18sp" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/standing_row"
+            android:id="@+id/lyi_row"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:padding="22dp"
             android:background="@color/success">
 
             <TextView
-                android:id="@+id/standing_title"
+                android:id="@+id/lyi_title"
                 android:layout_weight="1"
                 android:text="@string/lyi"
                 android:textAlignment="center"
@@ -141,21 +141,21 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/standing_prob"
+                android:id="@+id/lyi_prob"
                 android:layout_weight="1"
                 android:textAlignment="center"
                 android:textSize="18sp" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/walking_row"
+            android:id="@+id/std_row"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="22dp"
             android:background="@color/success">
 
             <TextView
-                android:id="@+id/walking_title"
+                android:id="@+id/std_title"
                 android:layout_weight="1"
                 android:text="@string/std"
                 android:textAlignment="center"
@@ -163,7 +163,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/walking_prob"
+                android:id="@+id/std_prob"
                 android:layout_weight="1"
                 android:textAlignment="center"
                 android:textSize="18sp" />

@@ -44,13 +44,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static List<Float> x;
     private static List<Float> y;
     private static List<Float> z;
-    private TextView downstairsTextView;
+    private TextView bscTextView;
 
-    private TextView joggingTextView;
-    private TextView sittingTextView;
-    private TextView standingTextView;
-    private TextView upstairsTextView;
-    private TextView walkingTextView;
+    private TextView fklTextView;
+    private TextView folTextView;
+    private TextView sdlTextView;
+    private TextView lyiTextView;
+    private TextView stdTextview;
     private TextToSpeech textToSpeech;
     float[][] results = new float[1][OUTPUT_SIZE];
     Vibrator v;
@@ -65,12 +65,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         y = new ArrayList<>();
         z = new ArrayList<>();
 
-        downstairsTextView = findViewById(R.id.downstairs_prob);
-        joggingTextView = findViewById(R.id.jogging_prob);
-        sittingTextView = findViewById(R.id.sitting_prob);
-        standingTextView = findViewById(R.id.standing_prob);
-        upstairsTextView = findViewById(R.id.upstairs_prob);
-        walkingTextView = findViewById(R.id.walking_prob);
+        bscTextView = findViewById(R.id.bsc_prob);
+        fklTextView = findViewById(R.id.fkl_prob);
+        folTextView = findViewById(R.id.fol_prob);
+        sdlTextView = findViewById(R.id.sdl_prob);
+        lyiTextView = findViewById(R.id.lyi_prob);
+        stdTextview = findViewById(R.id.std_prob);
 
         try {
             tflite=new Interpreter(loadModelFile(modelFile));
@@ -148,12 +148,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             tflite.run(inp, results);
 
-            downstairsTextView.setText(Float.toString(round(results[0][0], 2)));
-            joggingTextView.setText(Float.toString(round(results[0][1], 2)));
-            sittingTextView.setText(Float.toString(round(results[0][2], 2)));
-            standingTextView.setText(Float.toString(round(results[0][3], 2)));
-            upstairsTextView.setText(Float.toString(round(results[0][4], 2)));
-            walkingTextView.setText(Float.toString(round(results[0][5], 2)));
+            bscTextView.setText(Float.toString(round(results[0][0], 2)));
+            fklTextView.setText(Float.toString(round(results[0][1], 2)));
+            folTextView.setText(Float.toString(round(results[0][2], 2)));
+            sdlTextView.setText(Float.toString(round(results[0][3], 2)));
+            lyiTextView.setText(Float.toString(round(results[0][4], 2)));
+            stdTextview.setText(Float.toString(round(results[0][5], 2)));
 
             x.clear();
             y.clear();
