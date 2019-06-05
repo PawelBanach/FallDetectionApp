@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView lyiTextView;
     private TextView stdTextview;
     private TextToSpeech textToSpeech;
-    private int sensorName;
     float[][] results = new float[1][OUTPUT_SIZE];
     Vibrator v;
 
