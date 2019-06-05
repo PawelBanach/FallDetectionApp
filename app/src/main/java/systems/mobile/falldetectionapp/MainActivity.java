@@ -10,6 +10,7 @@ import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import org.tensorflow.lite.Interpreter;
@@ -31,7 +32,7 @@ import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener, TextToSpeech.OnInitListener {
-    String modelFile="fallDetection.tflite";
+    String modelFile="fallDetection2.tflite";
     Interpreter tflite;
 
     Set<Integer> fallDetectionIds = new HashSet<>(Arrays.asList(0, 1, 2, 4));
@@ -39,11 +40,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static final int OUTPUT_SIZE = 6;
     private static final float MIN_PROPABILITY = 0.7f;
 
-
     private static final int N_SAMPLES = 100;
-    private static List<Float> x;
-    private static List<Float> y;
-    private static List<Float> z;
+    private static final int WINDOW_SIZE = 10;
+    private static List<Float> a_x;
+    private static List<Float> a_y;
+    private static List<Float> a_z;
+    private static List<Float> g_x;
+    private static List<Float> g_y;
+    private static List<Float> g_z;
     private TextView bscTextView;
 
     private TextView fklTextView;
@@ -52,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView lyiTextView;
     private TextView stdTextview;
     private TextToSpeech textToSpeech;
+    private int sensorName;
     float[][] results = new float[1][OUTPUT_SIZE];
     Vibrator v;
 
@@ -61,9 +66,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        x = new ArrayList<>();
-        y = new ArrayList<>();
-        z = new ArrayList<>();
+        a_x = new ArrayList<>();
+        a_y = new ArrayList<>();
+        a_z = new ArrayList<>();
+        g_x = new ArrayList<>();
+        g_y = new ArrayList<>();
+        g_z = new ArrayList<>();
 
         bscTextView = findViewById(R.id.bsc_prob);
         fklTextView = findViewById(R.id.fkl_prob);
@@ -104,12 +112,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
                 for (int i = 0; i < results[0].length; i++) {
                     if (Float.compare(results[0][i], MIN_PROPABILITY) > 0 && fallDetectionIds.contains(i)) {
+                        // Tell what fall it was
                         textToSpeech.speak("FALL DETECTED", TextToSpeech.QUEUE_ADD, null, Integer.toString(new Random().nextInt()));
                         v.vibrate(500);
                     }
                 }
             }
-        }, 500, 2500);
+        }, 500, 2000);
     }
 
     protected void onPause() {
@@ -120,44 +129,65 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onResume() {
         super.onResume();
         getSensorManager().registerListener(this, getSensorManager().getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_GAME);
+        getSensorManager().registerListener(this, getSensorManager().getDefaultSensor(Sensor.TYPE_GYROSCOPE), SensorManager.SENSOR_DELAY_GAME);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        activityPrediction();
-        x.add(event.values[0]);
-        y.add(event.values[1]);
-        z.add(event.values[2]);
+        if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            a_x.add(event.values[0]);
+            a_y.add(event.values[1]);
+            a_z.add(event.values[2]);
+            // Log.v("ACC: ",  Float.toString(event.values[0]) + "  " + Float.toString(event.values[1]) + "  " + Float.toString(event.values[2]));
+
+        } else {
+            g_x.add(event.values[0]);
+            g_y.add(event.values[1]);
+            g_z.add(event.values[2]);
+            // Log.v("GYRO: ",  Float.toString(event.values[0]) + "  " + Float.toString(event.values[1]) + "  " + Float.toString(event.values[2]));
+        }
+        if (a_x.size() > N_SAMPLES && a_y.size() > N_SAMPLES && a_z.size() > N_SAMPLES &&  g_x.size() > N_SAMPLES && g_y.size() > N_SAMPLES && g_z.size() > N_SAMPLES) {
+            activityPrediction();
+        }
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-
-    }
+    public void onAccuracyChanged(Sensor sensor, int i) {}
 
     private void activityPrediction() {
-        if (x.size() == N_SAMPLES && y.size() == N_SAMPLES && z.size() == N_SAMPLES) {
-            List<Float> data = new ArrayList<>();
-            data.addAll(x);
-            data.addAll(y);
-            data.addAll(z);
+        a_x.subList(0, a_x.size() - N_SAMPLES).clear();
+        a_y.subList(0, a_y.size() - N_SAMPLES).clear();
+        a_z.subList(0, a_z.size() - N_SAMPLES).clear();
+        g_x.subList(0, g_x.size() - N_SAMPLES).clear();
+        g_y.subList(0, g_y.size() - N_SAMPLES).clear();
+        g_z.subList(0, g_z.size() - N_SAMPLES).clear();
 
+        List<Float> data = new ArrayList<>();
+        data.addAll(a_x);
+        data.addAll(a_y);
+        data.addAll(a_z);
+        data.addAll(g_x);
+        data.addAll(g_y);
+        data.addAll(g_z);
 
-            float[] inp = toFloatArray(data);
+        float[] inp = toFloatArray(data);
 
+        tflite.run(inp, results);
 
-            tflite.run(inp, results);
+        bscTextView.setText(Float.toString(round(results[0][0], 2)));
+        fklTextView.setText(Float.toString(round(results[0][1], 2)));
+        folTextView.setText(Float.toString(round(results[0][2], 2)));
+        sdlTextView.setText(Float.toString(round(results[0][3], 2)));
+        lyiTextView.setText(Float.toString(round(results[0][4], 2)));
+        stdTextview.setText(Float.toString(round(results[0][5], 2)));
 
-            bscTextView.setText(Float.toString(round(results[0][0], 2)));
-            fklTextView.setText(Float.toString(round(results[0][1], 2)));
-            folTextView.setText(Float.toString(round(results[0][2], 2)));
-            sdlTextView.setText(Float.toString(round(results[0][3], 2)));
-            lyiTextView.setText(Float.toString(round(results[0][4], 2)));
-            stdTextview.setText(Float.toString(round(results[0][5], 2)));
-
-            x.clear();
-            y.clear();
-            z.clear();
+        for (int i=0; i < WINDOW_SIZE; ++i) {
+            a_x.remove(0);
+            a_y.remove(0);
+            a_z.remove(0);
+            g_x.remove(0);
+            g_y.remove(0);
+            g_z.remove(0);
         }
     }
 
