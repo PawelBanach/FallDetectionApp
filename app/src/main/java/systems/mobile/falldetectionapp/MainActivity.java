@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Set<Integer> fallDetectionIds = new HashSet<>(Arrays.asList(0, 1, 2, 4));
 
     private static final int OUTPUT_SIZE = 6;
-    private static final float MIN_PROPABILITY = 0.7f;
+    private static final float MIN_PROPABILITY = 0.6f;
 
     private static final int N_SAMPLES = 100;
     private static final int WINDOW_SIZE = 10;

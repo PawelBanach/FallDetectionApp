@@ -5,168 +5,144 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/GridLayout1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#ededed"
-        android:padding="22dp"
-        tools:context="io.github.introml.activityrecognition.MainActivity">
+        android:layout_gravity="center"
+        android:alignmentMode="alignBounds"
+        android:columnCount="2"
+        android:rowCount="8"
+        tools:context="com.inducesmile.gridlayouttutorial.MainActivity">
 
-        <TableRow
-            android:id="@+id/title_row"
+
+        <pl.droidsonroids.gif.GifImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="22dp"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_gravity="center|center"
+            android:src="@drawable/gif_bsc" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_gravity="center|center"
+            android:src="@drawable/gif_fkl" />
+
+        <TextView
+            android:id="@+id/bsc_prob"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal|top"
             android:textAlignment="center"
-            android:background="@color/standard">
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_weight="1"
-                android:text="@string/activity"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold|italic" />
+        <TextView
+            android:id="@+id/fkl_prob"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|top"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_weight="1"
-                android:text="@string/probability"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold|italic" />
-        </TableRow>
+        <Space
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_height="20dp" />
 
-        <TableRow
-            android:id="@+id/bsc_row"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:padding="22dp"
-            android:background="@color/failure">
 
-            <TextView
-                android:id="@+id/bsc"
-                android:layout_weight="1"
-                android:text="@string/bsc"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/bsc_prob"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:textSize="18sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/fkl_row"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:padding="22dp"
-            android:background="@color/failure">
-
-            <TextView
-                android:id="@+id/fkl_title"
-                android:layout_weight="1"
-                android:text="@string/fkl"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/fkl_prob"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:textSize="18sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/sitting_row"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:padding="22dp"
-            android:background="@color/failure">
-
-            <TextView
-                android:id="@+id/fol_title"
-                android:layout_weight="1"
-                android:text="@string/fol"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/fol_prob"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:textSize="18sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/sdl_row"
+        <pl.droidsonroids.gif.GifImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="22dp"
-            android:background="@color/failure">
+            android:layout_height="wrap_content"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:layout_gravity="center|center"
+            android:src="@drawable/gif_fol" />
 
-            <TextView
-                android:id="@+id/sdl_title"
-                android:layout_weight="1"
-                android:text="@string/sdl"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/sdl_prob"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:textSize="18sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/lyi_row"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:padding="22dp"
-            android:background="@color/success">
-
-            <TextView
-                android:id="@+id/lyi_title"
-                android:layout_weight="1"
-                android:text="@string/lyi"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/lyi_prob"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:textSize="18sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/std_row"
+        <pl.droidsonroids.gif.GifImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="22dp"
-            android:background="@color/success">
+            android:layout_height="wrap_content"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:layout_gravity="center|center"
+            android:src="@drawable/gif_sdl" />
 
-            <TextView
-                android:id="@+id/std_title"
-                android:layout_weight="1"
-                android:text="@string/std"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/fol_prob"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal|top"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/std_prob"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:textSize="18sp" />
-        </TableRow>
-    </TableLayout>
+        <TextView
+            android:id="@+id/sdl_prob"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|top"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_row="5"
+            android:layout_column="0"
+            android:layout_height="20dp" />
+
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="6"
+            android:layout_column="0"
+            android:layout_gravity="center|center"
+            android:src="@drawable/gif_lyi" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="6"
+            android:layout_column="1"
+            android:layout_gravity="center|center"
+            android:src="@drawable/gif_std" />
+
+        <TextView
+            android:id="@+id/lyi_prob"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_row="7"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal|top"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/std_prob"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_row="7"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|top"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </GridLayout>
 </ScrollView>
