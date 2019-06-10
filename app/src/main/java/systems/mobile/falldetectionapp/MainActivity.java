@@ -176,8 +176,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         bscTextView.setText(Float.toString(round(results[0][0], 2)));
         fklTextView.setText(Float.toString(round(results[0][1], 2)));
         folTextView.setText(Float.toString(round(results[0][2], 2)));
-        sdlTextView.setText(Float.toString(round(results[0][3], 2)));
-        lyiTextView.setText(Float.toString(round(results[0][4], 2)));
+        lyiTextView.setText(Float.toString(round(results[0][3], 2)));
+        sdlTextView.setText(Float.toString(round(results[0][4], 2)));
         stdTextview.setText(Float.toString(round(results[0][5], 2)));
 
         for (int i=0; i < WINDOW_SIZE; ++i) {
